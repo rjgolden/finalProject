@@ -1,0 +1,161 @@
+
+
+
+var rockRandom = random(-40,200);
+var currentScene;
+var starY=62;
+var score=0;
+
+var p = {
+    x: 0,
+    y: 0,
+    w: 43,
+    h:23,
+};
+
+var colBox = function(x, y, w, h) 
+{
+ 
+    rect(x,y,w,h);
+    if(p.x + p.w > x && p.y + p.h > y && p.x < x + w && p.y < y + h){
+        currentScene = 4;
+        playSound(getSound("retro/laser2"));
+    }
+    
+};
+
+var colBox2 = function(x, y, w, h) 
+{
+  
+   
+    rect(x,y,w,h);
+    if(p.x + p.w > x && p.y + p.h > y && p.x < x + w && p.y < y + h){
+        currentScene =4;
+        playSound(getSound("retro/laser2"));
+    }
+    
+};
+
+var colBox3 = function (x, y, w, h) 
+{
+
+    image(getImage("cute/Star"),x,y,w,h);
+     if(p.x + p.w > x && p.y + p.h > y && p.x < x + w && p.y < y + h){
+        playSound(getSound("retro/coin"));
+        
+        
+    }
+};
+
+    
+var Obstacles = function(x,y){
+    this.x = x;
+    this.y = y;
+};
+
+Obstacles.prototype.draw = function() {
+    fill(159, 159, 189);
+     colBox(this.x,this.y,48,300);
+     
+};
+
+var Obstacles2 = function(x,y){
+    this.x = x;
+    this.y = y;
+};
+
+Obstacles2.prototype.draw = function() {
+    fill(159, 159, 189);
+     colBox2(this.x,this.y,48,300);
+     
+};
+
+var Obstacles3 = function(x,y){
+    this.x = x;
+    this.y = y;
+};
+
+Obstacles3.prototype.draw = function() {
+     colBox3(this.x,this.y,23,32);
+     
+};
+
+
+
+var sticks = [];
+var obstacles = [];
+for (var i = 0; i < 40; i++) {
+    var obstacleRand = random(0,260);
+    obstacles.push(new Obstacles(300+i*220,-279+obstacleRand));
+    obstacles.push(new Obstacles2(300+i*220,110+obstacleRand));
+     sticks.push(new Obstacles3(310+i*220,43+obstacleRand));
+}
+
+var Beaver = function(x, y) {
+    this.x = x;
+    this.y = y;
+    this.img = getImage("creatures/Hopper-Happy");
+    this.sticks = 0;
+};
+
+Beaver.prototype.draw = function() {
+    fill(255, 0, 0);
+    this.y = constrain(this.y, 0, height-50);
+    image(this.img, this.x, this.y, 40, 40);
+};
+var beaver = new Beaver(100,100);
+
+Beaver.prototype.hop = function() {
+    this.y -= 5;
+};
+
+Beaver.prototype.fall = function() {
+    this.y += 5;
+};
+Beaver.prototype.checkForStickGrab = function(stick) {
+    if ((stick.x >= this.x && stick.x <= (this.x + 40)) &&
+        (stick.y >= this.y && stick.y <= (this.y + 40))) {
+        stick.y = -400;
+        this.sticks++;
+    }
+};
+
+Beaver.prototype.draw = function() {
+     rect (this.x,this.y,23,32);
+};
+
+draw = function() {
+ 
+    
+   
+    
+    // static
+    background(227, 254, 255);
+       
+   p.x=mouseX;
+   p.y=mouseY;
+    
+  beaver.draw();
+   
+      for (var i = 0; i < obstacles.length; i++) 
+      {
+        obstacles[i].draw();
+        obstacles[i].x -= 2;
+    }
+  
+    for (var i = 0; i < sticks.length; i++) {
+        sticks[i].draw();
+        beaver.checkForStickGrab(sticks[i]);
+        sticks[i].x -= 2;
+    }
+ 
+    
+     if (keyIsPressed && keyCode === 0) {
+        beaver.hop();
+    } else {
+        beaver.fall();
+    }
+    beaver.draw();
+ 
+};
+
