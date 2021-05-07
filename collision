@@ -1,0 +1,69 @@
+var rockRandom= (-40,200);
+    
+
+
+
+var p = {
+    x: 0,
+    y: 0,
+    w: 30,
+    h:30,
+};
+
+
+var colBox = function(x, y, w, h) {
+ 
+    rect(x,y,w,h);
+    if(p.x + p.w > x && p.y + p.h > y && p.x < x + w && p.y < y + h){
+        return true;
+    }
+    
+};
+
+
+var colBox2 = function(x, y, w, h) {
+  
+   
+    rect(x,y,w,h);
+    if(p.x + p.w > x && p.y + p.h > y && p.x < x + w && p.y < y + h){
+        return true;
+    }
+    
+};
+var score = 0;
+var starY=18;
+
+var colBox3 = function (x,y,w,h) {
+
+    image(getImage("cute/Star"),x,y,w,h);
+     if(p.x + p.w > x && p.y + p.h > y && p.x < x + w && p.y < y + h){
+        starY+=400;
+        score ++;
+        return true;
+    }
+};
+    
+    
+
+
+
+draw = function() {
+    background(255, 255, 255);
+    
+    p.x = mouseX;
+    p.y= mouseY;
+    
+    println(colBox(51,-344+rockRandom,48,334));
+    println(colBox2(52,78+rockRandom,48,285));
+    println(colBox3(62,starY+rockRandom,26,36));
+    
+   
+    
+    fill(0);
+    text("score:",164,91,100,100);
+    text(score,200,91,100,100);
+    rect(p.x,p.y,p.w,p.h,4);
+    
+    
+};
+
