@@ -1,0 +1,50 @@
+
+var drawFish = function(x,y,h)
+{
+    var drawBody = function()
+    {
+    strokeWeight(2);
+    fill(255, 138, 28);    
+    //Back Bottom Finn
+    triangle(x+(h/50*177),y+(h/50*182),x+(h/50*134),y+(h/50*182),x+(h/50*165),y+(h/50*212));
+    //Body
+    ellipse(x+(h/50*151), y+(h/50*143),h/50*183,h/46*91);
+    //Tail
+    triangle(x+(h/50*44),y+(h/50*66),x+(h/50*9),y+(h/50*201),x+(h/50*71),y+(h/50*140));
+    //Stripes
+    strokeWeight(0.5);
+    fill(255,255,225);
+    rect(x+(h/50*138),y+(h/50*92),h/50*15,h/50*102);
+    rect(x+(h/50*167),y+(h/50*94),h/50*14,h/50*96);
+    rect(x+(h/50*200),y+(h/50*104),h/50*10,h/50*77);
+    //Front Bottom Finn
+    strokeWeight(2);
+    fill(255, 138, 28);
+    triangle(x+(h/50*177),y+(h/50*182),x+(h/50*134),y+(h/50*182),x+(h/50*146),y+(h/50*212));
+    //Stripes
+    fill(255,255,225);
+    strokeWeight(0.5);
+    rect(x+(h/50*80),y+(h/50*108),h/50*13,h/50*69);
+    rect(x+(h/50*110),y+(h/50*97),h/50*12,h/50*90);
+    };
+    
+    var drawOther = function ()
+    {
+        //Eye
+        fill(255,255,255);
+        ellipse(x+(h/50*223),y+(h/50*127),h/50*15,h/50*21);
+        fill(69, 51, 102);
+        ellipse(x+(h/50*223),y+(h/50*127),h/50*4,h/50*12);
+        //Mouth
+        strokeWeight(2);
+        arc(x+(h/50*240),y+(h/50*145),h/50*66,h/50*36,97,143);
+        
+        
+        
+    };
+    
+    
+drawBody();
+drawOther();
+};
+drawFish(50,50,45);
